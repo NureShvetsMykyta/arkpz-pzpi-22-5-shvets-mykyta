@@ -1,0 +1,324 @@
+  Міністерство освіти та науки України
+Харківський національний університет радіоелектроніки
+
+
+Кафедра програмної інженерії
+
+
+
+ЗВІТ 
+до практичного заняття 2 з дисципліни 
+“Аналіз та рефакторинг коду”
+на тему: “Методи рефакторингу коду програмного забезпечення” 
+
+
+
+Виконав ст. гр. ПЗПІ-22-5
+Швець Микита Сергійович
+
+Перевірив
+ст. викладач кафедри ПІ
+Сокорчук Ігор Петрович
+
+
+
+
+
+
+
+
+Харків 2024
+1 МЕТА
+
+     Ознайомитися з основним методам рефакторингу коду на основі реальних прикладів з їхніх власних програмних проєктів. Студенти повинні навчитися ідентифікувати проблеми в коді та використовувати відповідні методи рефакторингу для покращення його якості.
+
+2 ЗАВДАННЯ
+
+     Студент має вибрати три методи рефакторингу коду з книги Мартіна Фаулера «Refactoring. Improving the Design of Existing Code» і застосувати їх на прикладах власного коду. 
+     Для кожного методу рефакторингу потрібно:
+     1. Описати проблему, яку вирішує обраний метод, зокрема недоліки початкового коду, такі як порушення принципів SOLID, технічний борг чи складність читання;
+     2. Навести код до застосування методу, який демонструє початковий стан проблеми;
+     3. Показати код після рефакторингу, де обраний метод вирішує проблему;
+     4. Надати пояснення переваг використаного методу, наприклад, зменшення дублювання коду, покращення його читабельності, зниження рівня зв’язаності або забезпечення кращої підтримки в майбутньому..
+
+3 ХІД РОБОТИ
+
+     Рефакторинг – це процес змінення структури коду без зміни його зовнішньої поведінки. Метою є покращення читабельності, зменшення складності та дублювання коду, що спрощує підтримку та розширення програмного забезпечення. Хоча основна мета рефакторингу не полягає в оптимізації продуктивності, часто результатом є покращення ефективності роботи програми. Рефакторинг допомагає створювати більш якісний, підтримуваний і масштабований код, що є важливим для довготривалих проєктів.
+     У своїй роботі я використав три методи рефакторингу з книги Мартіна Фаулера «Refactoring. Improving the Design of Existing Code»: Move Method, Separate Domain from Presentation та Split Temporary Variable. Ці методи були застосовані до коду мого курсового проєкту – гри CrossyRoad, доступної на GitHub: https://github.com/nshvets5/CrossyRoad-game.
+     Move Method – цей метод використовується, коли метод розміщено в класі, який не є найбільш підходящим для його логіки. Переміщення методу в більш відповідний клас зменшує залежності та підвищує модульність коду. Це дозволяє зменшити складність підтримки та полегшити тестування. У моєму проєкті метод ChangeSpeed, який відповідає за управління швидкістю, спочатку знаходився в класі Car, хоча його логіка також стосувалася об’єктів типу Obstacle. Після рефакторингу метод був переміщений у базовий клас Obstacle, що зробило код більш читабельним та зменшило дублювання.
+     Separate Domain from Presentation – цей метод дозволяє розділити бізнес-логіку програми та логіку представлення (взаємодія з користувачем). Це підвищує тестованість, гнучкість та модульність коду. У моєму проєкті клас Player поєднував бізнес-логіку з логікою відображення. Після рефакторингу логіка відображення була винесена в окремий клас PlayerRenderer, що дозволило відокремити доменну частину від представлення, покращити підтримку та забезпечити гнучкість у використанні в інших контекстах.
+     Split Temporary Variable – цей метод застосовується, коли одна тимчасова змінна виконує кілька ролей. Для покращення читабельності та підтримки коду варто розділити її на кілька змінних, кожна з яких має чітко визначену роль. У моєму проєкті змінна, що використовувалась для обчислення нової позиції X об’єкта Obstacle, була розділена на дві окремі змінні: newX для обчислення позиції та widthLimit для збереження межі. Це зробило код більш зрозумілим і полегшило його підтримку.
+     Посилання на відеозвіт: https://youtu.be/FWZjgLXzyf4
+     
+ВИСНОВКИ
+
+     У результаті проведеної роботи з рефакторингу коду курсового проєкту “CrossyRoad” вдалося досягти значних покращень у структурі та якості коду. Застосування методів рефакторингу, таких як Move Method, Separate Domain from Presentation та Split Temporary Variable, дозволило значно покращити читабельність коду, зменшити складність і дублювання, а також підвищити модульність та підтримуваність програми.
+     Перший метод, Move Method, дозволив перемістити методи в більш відповідні класи, що зменшило кількість непотрібних залежностей і покращило організацію коду. Це зробило програму більш зрозумілою для розробників і полегшило її подальше розширення.
+     Застосування методу Separate Domain from Presentation допомогло розділити бізнес-логіку програми та логіку відображення. Це не тільки підвищило тестованість та модульність, але й забезпечило більшу гнучкість при подальшому розширенні інтерфейсу користувача.
+     Метод Split Temporary Variable дозволив покращити зрозумілість коду, розділивши одну змінну, яка виконувала кілька ролей, на кілька окремих змінних, кожна з яких має чітко визначену мету. Це знизило ймовірність помилок і зробило код більш структурованим.
+     У результаті рефакторингу код став більш стабільним, зручним для тестування і розширення. Використання цих методів сприяло не лише поліпшенню структури програми, але й значно полегшило її подальшу підтримку та розвиток. 
+
+ДОДАТОК А
+
+Код для демонстрації рекомендацій
+
+  1  // Bad example (Move Method)
+  2
+  3  public abstract class GameElement
+  4  {
+  5      // Атрибути та властивості ...
+  6
+  7      public virtual void Action(Engine engine)
+  8      { }
+  9      public virtual void ChangeSpeed(bool isBoosting)
+ 10      { }
+ 11      public abstract void Draw();
+ 12  }
+ 13
+ 14  public abstract class Obstacle : GameElement
+ 15  {
+ 16      public double Speed { get; set; }
+ 17      public Direction Direction { get; set; }
+ 18      public override bool isKilling { get { return false; } }
+ 19
+ 20      // Інші атрибути та властивості...
+ 21
+ 22      // Інші методи ...
+ 23
+ 24  }
+ 25
+ 26  public class Car : Obstacle
+ 27  {
+ 28      protected const string car = "[###]";
+ 29      public override int Length { get { return car.Length; } }
+ 30      public override bool isKilling { get { return true; } }
+ 31
+ 32      // Інші методи та властивості ...
+ 33
+ 34      public override void ChangeSpeed(bool isBoosting)
+ 35      {
+ 36          var speedModifier = isBoosting ? 1 / 5.0 : 5.0;
+ 37          Speed *= speedModifier;
+ 38      }
+ 39  }
+ 40
+ 41  // Good example (Move Method)
+ 42
+ 43  public abstract class GameElement
+ 44  {
+ 45      // Атрибути та властивості ...
+ 46
+ 47      public virtual void Action(Engine engine)
+ 48      { }
+ 49      public abstract void Draw();
+ 50  }
+ 51
+ 52  public abstract class Obstacle : GameElement
+ 53  {
+ 54      public double Speed { get; set; }
+ 55      public Direction Direction { get; set; }
+ 56      public override bool isKilling { get { return false; } }
+ 57
+ 58      // Інші атрибути та властивості...
+ 59
+ 60      // Переміщуємо метод
+ 61      public virtual void ChangeSpeed(bool isBoosting)
+ 62      { }
+ 63
+ 64      // Інші методи ...
+ 65
+ 66  }
+ 67
+ 68  public class Car : Obstacle
+ 69  {
+ 70      protected const string car = "[###]";
+ 71      public override int Length { get { return car.Length; } }
+ 72      public override bool isKilling { get { return true; } }
+ 73
+ 74      // Інші методи та властивості
+ 75
+ 76      public override void ChangeSpeed(bool isBoosting)
+ 77      {
+ 78          var speedModifier = isBoosting ? 1 / 5.0 : 5.0;
+ 79          Speed *= speedModifier;
+ 80      }
+ 81  }
+ 82
+ 83  // Bad example (Separate Domain from Presentation)
+ 84
+ 85  public class Player : GameElement
+ 86  {
+ 87      protected const string player = "O";
+ 88
+ 89      private int prevX;
+ 90      private int prevY;
+ 91
+ 92      public Player(int x, int y, GameField field) : base(x, y, field)
+ 93      { }
+ 94
+ 95      public override void Draw()
+ 96      {
+ 97          Console.BackgroundColor = ConsoleColor.DarkGreen;
+ 98          Console.ForegroundColor = ConsoleColor.White;
+ 99          string emptySpace = new string(' ', player.Length);
+100          if (prevX != 0 && prevY != 0)
+101          {
+102              Console.SetCursorPosition(prevX, prevY);
+103              Console.Write(emptySpace);
+104          }
+105          Console.SetCursorPosition(X, Y);
+106          Console.Write(player);
+107          prevX = X;
+108          prevY = Y;
+109      }
+110  }
+111
+112  // Good example (Separate Domain from Presentation)
+113
+114  public class Player : GameElement
+115  {
+116      protected const string player = "O";
+117
+118      private int prevX;
+119      private int prevY;
+120
+121      public Player(int x, int y, GameField field) : base(x, y, field) { }
+122
+123      // Домени гравця: збереження попередніх координат
+124      public int PreviousX => prevX;
+125      public int PreviousY => prevY;
+126
+127      public bool PreviousPositionIsValid() => prevX != 0 && prevY != 0;
+128
+129      public string GetPlayerSymbol() => player;
+130
+131      public override void Draw() { }
+132  }
+133
+134  public class PlayerRenderer
+135  {
+136      public void Draw(Player player)
+137      {
+138          Console.BackgroundColor = ConsoleColor.DarkGreen;
+139          Console.ForegroundColor = ConsoleColor.White;
+140
+141          string emptySpace = new string(' ', player.Length);
+142
+143          // Очищаємо попередню позицію
+144          if (player.PreviousPositionIsValid())
+145          {
+146              Console.SetCursorPosition(player.PreviousX, player.PreviousY);
+147              Console.Write(emptySpace);
+148          }
+149
+150          // Виводимо нового гравця
+151          Console.SetCursorPosition(player.X, player.Y);
+152          Console.Write(player.GetPlayerSymbol());
+153      }
+154  }
+155
+156  // Bad example (Split Temporary Variable)
+157
+158  public abstract class Obstacle : GameElement
+159  {
+160      public double Speed { get; set; }
+161      public Direction Direction { get; set; }
+162      public override bool isKilling { get { return false; } }
+163
+164      // Інші атрибути та властивості ...
+165
+166      public void Move()
+167      {
+168          lock (field)
+169          {
+170              pX = X;
+171              X = ((X + dx[Direction]) % (field.Width - Length) == 0)
+172                  ? (Direction == Direction.Left ? field.Width - Length - 1 : 1)
+173                  : (X + dx[Direction]) % (field.Width - Length);
+174              updateField();
+175          }
+176      }
+177
+178      // Інші методи ...
+179
+180  }
+181
+182  // Good example (Split Temporary Variable)
+183
+184  public abstract class Obstacle : GameElement
+185  {
+186      public double Speed { get; set; }
+187      public Direction Direction { get; set; }
+188      public override bool isKilling { get { return false; } }
+189
+190      // Інші атрибути та властивості ...
+191
+192      public void Move()
+193      {
+194          lock (field)
+195          {
+196              pX = X;
+197
+198              // Розділення на проміжні змінні
+199              int newX = X + dx[Direction];
+200              int widthLimit = field.Width - Length;
+201
+202              // Обчислення нової позиції
+203              if (newX % widthLimit == 0)
+204              {
+205                  X = (Direction == Direction.Left) ? widthLimit - 1 : 1;
+206              }
+207              else
+208              {
+209                  X = newX % widthLimit;
+210              }
+211
+212              updateField();
+213          }
+214      }
+215
+216      // Інші методи ...
+217
+218  }
+
+ДОДАТОК Б
+
+Слайди презентації
+
+
+Рисунок 1.1 – Титульний слайд
+
+
+Рисунок 1.2 – Про рефакторинг
+
+Рисунок 1.3 – Методи рефакторингу
+
+
+Рисунок 1.4 – Move Method 
+
+
+Рисунок 1.5 – Застосування Move Method
+
+
+Рисунок 1.6 – Separate Domain from Presentation
+
+
+Рисунок 1.7 – Застосування Separate Domain from Presentation
+
+
+Рисунок 1.8 – Split Temporary Variable
+
+
+Рисунок 1.9 – Застосування Split Temporary Variable
+
+
+Рисунок 1.10 – Інтегровані засоби рефакторингу
+
+
+Рисунок 1.11 – Статичні аналізатори коду
+
+
+Рисунок 1.12 – Висновки
+
+
+Рисунок 1.13 – Використані джерела
